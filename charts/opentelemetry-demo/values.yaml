@@ -63,7 +63,18 @@ components:
   checkoutService:
     enabled: true
     servicePort: 8080
-    podAnnotations: {}
+    ports:
+    - name: service
+      value: 8080
+    - name: pprof
+      value: 6060
+    podAnnotations:
+      pyroscope.io/scrape: 'true'
+      pyroscope.io/application-name: 'checkout-service'
+      pyroscope.io/spy-name: 'gospy'
+      pyroscope.io/profile-cpu-enabled: 'true'
+      pyroscope.io/profile-mem-enabled: 'true'
+      pyroscope.io/port: '6060'
     #  instrumentation.opentelemetry.io/inject-sdk: "true"
 
   currencyService:
